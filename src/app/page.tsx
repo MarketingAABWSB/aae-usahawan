@@ -175,6 +175,12 @@ export default function Home() {
               <a className="btn btn-ghost" href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20AAE" target="_blank" rel="noopener noreferrer">Sembang Santai Dulu</a>
             </div>
 
+            <div className="mini-trust">
+              <span>Sistem BOMP berstruktur</span>
+              <span>Latihan zero-to-hero</span>
+              <span>Marketing HQ</span>
+            </div>
+
           </div>
 
           {/* Right — Rotating Photo Stack */}
@@ -186,14 +192,6 @@ export default function Home() {
       {/* Stat Bar */}
       <div className="stat-bar">
         <div className="container stat-bar-inner">
-          <div className="stat-bar-item">
-            <b>Sistem BOMP</b>
-            <span>Tersusun & dipantau</span>
-          </div>
-          <div className="stat-bar-item">
-            <b>Latihan</b>
-            <span>Sokongan teknikal HQ</span>
-          </div>
           <div className="stat-bar-item">
             <b>33 Juta+</b>
             <span>Kenderaan berdaftar</span>
