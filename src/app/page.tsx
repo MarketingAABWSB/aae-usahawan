@@ -1,364 +1,744 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { 
-  Target, 
-  Lightbulb, 
-  Clock, 
-  CheckCircle2, 
-  ShieldCheck, 
-  MessageCircleQuestion,
-  TrendingUp,
-  Banknote,
-  Flame,
+import {
   ArrowRight,
   ChevronDown,
+  Menu,
+  X,
   MapPin,
   Phone,
   Mail,
   MessageCircle,
-  Wrench,
-  Trophy,
-  Menu,
-  X
+  Star,
+  Check,
 } from 'lucide-react';
+
+const HERO_SLIDES = [
+  {
+    src: 'https://images.unsplash.com/photo-1625047509248-ec889cbff17f?w=800&h=1000&fit=crop&q=80',
+    alt: 'Bengkel AAE',
+    label: 'Bengkel AAE',
+    sub: 'Bengkel aktif dan pencahayaan premium.',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?w=800&h=1000&fit=crop&q=80',
+    alt: 'Wira Negara',
+    label: 'Wira Negara',
+    sub: 'Visual asal-usul dan kredibiliti.',
+  },
+];
+
+function HeroPhotoStack() {
+  const [active, setActive] = useState(0);
+
+  return (
+    <div className="hero-visual">
+      {HERO_SLIDES.map((slide, i) => {
+        const isBig = i === active;
+        return (
+          <div
+            key={i}
+            className={`hero-photo ${isBig ? 'hero-photo-big' : 'hero-photo-small'}`}
+            onClick={() => setActive(i)}
+          >
+            <img src={slide.src} alt={slide.alt} />
+            <div className="hero-photo-overlay">
+              <b>{slide.label}</b>
+              <small>{slide.sub}</small>
+            </div>
+          </div>
+        );
+      })}
+
+      <div className="hero-badge">
+        Ikon Usahawan<br />Industri Automotif<br /><small>AURA MARA</small>
+      </div>
+    </div>
+  );
+}
+function SolutionAccordion() {
+  const [openIdx, setOpenIdx] = useState<number | null>(0);
+  const items = [
+    { title: "Sistem perakaunan & stok", desc: "Pantau jualan, stok dan prestasi melalui Webmax dengan mudah." },
+    { title: "SOP operasi lengkap", desc: "Dari saat pelanggan masuk sampai serah kunci, semuanya diatur sistematik." },
+    { title: "Pemasaran berpusat (HQ)", desc: "Pasukan pemasaran HQ jalankan iklan Facebook & TikTok khas untuk kawasan bengkel Tuan." },
+  ];
+  return (
+    <div className="accordion-wrapper reveal">
+      {items.map((it, i) => (
+        <div key={i} className={`accordion-item ${openIdx === i ? 'open' : ''}`} onClick={() => setOpenIdx(openIdx === i ? null : i)}>
+          <div className="accordion-title">
+            <span style={{ display: 'flex', alignItems: 'center', gap: '10px' }}><Check size={18} color="var(--gold)" /> <b>{it.title}</b></span>
+            <ChevronDown size={18} className="accordion-icon" />
+          </div>
+          <div className="accordion-content">
+            <p>{it.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   useEffect(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.reveal').forEach((el) => {
-      observer.observe(el);
-    });
-
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
   return (
     <>
-      {/* Navigation */}
+      {/* ── Navigation ─────────────────────────────── */}
       <nav className="navbar">
         <div className="container nav-container">
-          
-          {/* Mobile Menu Toggle */}
-          <button 
-            className="mobile-menu-btn" 
+          <button
+            className="mobile-menu-btn"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
 
-          {/* Brand */}
-          <Link href="/" className="nav-brand" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <img src="/azam-auto-logo-nobg.png" alt="Azam Auto Logo" style={{ height: '48px', width: 'auto', objectFit: 'contain' }} />
-            <span style={{ fontWeight: 700, fontSize: '1.25rem' }}>A-Cond Auto Expert</span>
+          <Link href="/" className="nav-brand" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+            <img src="/aae-logo.png" alt="A-Cond Auto Expert" className="nav-logo" />
+            <div className="nav-brand-divider"></div>
+            <img src="/azam-auto-logo-nobg.png" alt="Azam Auto Logo" className="nav-logo azam-logo" />
           </Link>
-          
-          {/* Desktop Links */}
+
           <div className="nav-links desktop-only">
-            <Link href="#masalah" className="nav-link">Masalah</Link>
-            <Link href="#solusi" className="nav-link">Solusi AAE</Link>
-            <Link href="#bukti" className="nav-link">Bukti Prestasi</Link>
-            <Link href="#tawaran" className="nav-link">Pelaburan</Link>
-            <a href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20AAE" className="btn btn-primary" style={{ padding: '0.6rem 1.25rem' }} target="_blank" rel="noopener noreferrer">
-              WhatsApp Kami
+            <a href="#masalah" className="nav-link">Masalah</a>
+            <a href="#peluang" className="nav-link">Peluang</a>
+            <a href="#solusi" className="nav-link">Solusi</a>
+            <a href="#bukti" className="nav-link">Bukti</a>
+            <a href="#tawaran" className="nav-link">Pelaburan</a>
+            <a href="#hubungi" className="nav-link">Hubungi</a>
+            <a href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20AAE" className="btn btn-primary btn-large" style={{ padding: '0.6rem 1.25rem' }} target="_blank" rel="noopener noreferrer">
+              Sembang Dengan Kami
             </a>
           </div>
 
-          {/* Mobile Dropdown */}
           <div className={`mobile-dropdown ${isMobileMenuOpen ? 'open' : ''}`}>
-            <Link href="#masalah" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Masalah</Link>
-            <Link href="#solusi" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Solusi AAE</Link>
-            <Link href="#bukti" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Bukti Prestasi</Link>
-            <Link href="#tawaran" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Pelaburan</Link>
-            <a href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20AAE" className="btn btn-primary" target="_blank" rel="noopener noreferrer">
-              WhatsApp Kami
+            <a href="#masalah" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Masalah</a>
+            <a href="#peluang" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Peluang</a>
+            <a href="#solusi" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Solusi</a>
+            <a href="#bukti" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Bukti</a>
+            <a href="#tawaran" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Pelaburan</a>
+            <a href="#hubungi" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Hubungi</a>
+            <a href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20AAE" className="btn btn-primary btn-large" target="_blank" rel="noopener noreferrer">
+              Sembang Dengan Kami
             </a>
           </div>
         </div>
       </nav>
 
-      {/* Floating CTA */}
+      {/* ── Floating WhatsApp CTA ────────────────── */}
       <a href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20AAE" className="floating-cta icon-only" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Kami">
         <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
         </svg>
       </a>
 
-      {/* Hero Section */}
-      <section className="hero-section" style={{ overflow: 'hidden' }}>
-        <div className="ambient-glow-blue"></div>
-        <div className="ambient-glow-red"></div>
-        <div className="hero-content reveal">
-          <h1 className="hero-title">
-            <span style={{ color: 'var(--red-primary)' }}>BERHENTI</span> BUKA BENGKEL SENDIRI KALAU TAK TAHU CARANYA!
-            "Pencen Dah Dekat, Duit Ganjaran LTAT Pun Dah Ada... Tapi Tuan Masih Buntu Nak Buat Bisnes Apa Yang 'Confirm' Jalan & Tak Langgar Dinding?"
-          </h1>
-          <p className="hero-subtitle animate-fade-in delay-100">
-            Khas untuk wira negara: Ketahui bagaimana Tuan boleh miliki perniagaan bengkel pakar penyaman udara kereta yang bersistem penuh. Kami 'suap' A-Z sistemnya, Tuan hanya pantau dan jana untung!
-          </p>
-          <div className="animate-fade-in delay-200">
-            <a href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20AAE" className="btn btn-primary btn-large" target="_blank" rel="noopener noreferrer">
-              KLIK SINI UNTUK TAHU RAHSIA BINA LEGASI BISNES
+      {/* ═══════════════════════════════════════════════
+          1 ▸ HERO
+      ═══════════════════════════════════════════════ */}
+      <header className="hero">
+        <div className="container hero-grid">
+          {/* Left — Text */}
+          <div>
+            <span className="hero-tag">Edisi Khas Pesara Tentera</span>
+
+            <h1 className="hero-h1">
+              Modal Pencen Tuan Layak Dapat{' '}
+              <span className="text-gold">Bisnes Yang Bersistem.</span>
+            </h1>
+
+            <p className="hero-lead">
+              Ramai pesara ada modal. Yang kurang adalah sistem, sokongan dan arah yang betul.
+              AAE hadir untuk tutup jurang itu — dengan bengkel aircond yang dipantau, teratur dan menguntungkan.
+            </p>
+
+            <div className="hero-actions">
+              <a className="btn btn-primary btn-large" href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20AAE" target="_blank" rel="noopener noreferrer">Lihat Peluang Perniagaan</a>
+              <a className="btn btn-ghost" href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20AAE" target="_blank" rel="noopener noreferrer">Sembang Santai Dulu</a>
+            </div>
+
+          </div>
+
+          {/* Right — Rotating Photo Stack */}
+          <HeroPhotoStack />
+        </div>
+
+      </header>
+
+      {/* Stat Bar */}
+      <div className="stat-bar">
+        <div className="container stat-bar-inner">
+          <div className="stat-bar-item">
+            <b>Sistem BOMP</b>
+            <span>Tersusun & dipantau</span>
+          </div>
+          <div className="stat-bar-item">
+            <b>Latihan</b>
+            <span>Sokongan teknikal HQ</span>
+          </div>
+          <div className="stat-bar-item">
+            <b>33 Juta+</b>
+            <span>Kenderaan berdaftar</span>
+          </div>
+          <div className="stat-bar-item">
+            <b>Aircond</b>
+            <span>Keperluan harian</span>
+          </div>
+          <div className="stat-bar-item">
+            <b>2 Sumber</b>
+            <span>Parts + upah kerja</span>
+          </div>
+          <div className="stat-bar-item">
+            <b>Sistem</b>
+            <span>Pantau melalui dashboard</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ═══════════════════════════════════════════════
+          2 ▸ PROBLEM / PAIN
+      ═══════════════════════════════════════════════ */}
+      <section id="masalah" className="section-block">
+        <div className="container two-col">
+          {/* Newspaper Card */}
+          <div className="newspaper-card reveal">
+            <div className="newspaper-top">
+              <span>LAPORAN KOSMO!</span>
+              <span>27 MAC 2026</span>
+            </div>
+            <h3 className="newspaper-headline">
+              Wang pencen RM96,000 pesara lesap diperdaya skim pelaburan palsu
+            </h3>
+            <div className="newspaper-img">
+              <img
+                src="/news.png"
+                alt="Keratan Akhbar Kosmo"
+              />
+            </div>
+            <p className="newspaper-body">
+              KUALA TERENGGANU – Seorang pesara berusia 63 tahun kerugian RM96,000 wang pencen akibat diperdaya skim pelaburan tidak wujud menerusi WhatsApp. Mangsa yang tertarik dengan tawaran tersebut telah melakukan 50 transaksi ke dalam 15 akaun berbeza sebelum menyedari ditipu.
+            </p>
+            <a
+              href="https://www.kosmo.com.my/2026/03/27/wang-pencen-rm96000-pesara-lesap-diperdaya-skim-pelaburan-palsu/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-outline"
+              style={{ width: '100%', marginTop: '16px', fontSize: '0.85rem' }}
+            >
+              Baca Artikel Penuh di Kosmo
+            </a>
+          </div>
+
+          {/* Pain Points */}
+          <div className="reveal">
+            <p className="kick">Realiti Selepas Bersara</p>
+            <h2 className="section-title">
+              Modal Ada. Disiplin Ada. Tetapi Tanpa Sistem, Tuan Boleh Terperangkap.
+            </h2>
+            <p className="lead">
+              Perniagaan yang kelihatan mudah dari luar boleh menjadikan Tuan hamba di kedai
+              sendiri apabila operasi, pekerja, stok dan pemasaran tidak dikawal.
+            </p>
+
+            <div className="pain-list">
+              <div className="pain-item">
+                <span className="pain-num">01</span>
+                <div>
+                  <b>Tak Ada Pengalaman Teknikal</b>
+                  <p>Tuan belum biasa dengan operasi bengkel dan pengurusan mekanik.</p>
+                </div>
+              </div>
+              <div className="pain-item">
+                <span className="pain-num">02</span>
+                <div>
+                  <b>Sukar Pantau Pekerja &amp; Stok</b>
+                  <p>Ketirisan dan harga tidak konsisten sukar dikesan tanpa sistem.</p>
+                </div>
+              </div>
+              <div className="pain-item">
+                <span className="pain-num">03</span>
+                <div>
+                  <b>Pelanggan Tidak Datang Sendiri</b>
+                  <p>Bisnes masih perlukan pemasaran dan proses jualan berulang.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════
+          3 ▸ INDUSTRY FACTS (DARK)
+      ═══════════════════════════════════════════════ */}
+      <section id="peluang" className="section-block dark-section">
+        <div className="container">
+          <div className="section-header center reveal">
+            <p className="kick gold">Kenapa Industri Aircond Kereta?</p>
+            <h2 className="section-title">Permintaan Yang Sentiasa Ada. Margin Dari Dua Arah.</h2>
+            <p className="lead">
+              Di Malaysia, aircond kereta bukan sekadar keselesaan. Apabila aircond panas,
+              pelanggan mahu masalah diselesaikan segera.
+            </p>
+          </div>
+
+          <div className="facts-grid">
+            <article className="fact-card reveal">
+              <span className="fact-num">1</span>
+              <h3>Lambakan Kenderaan</h3>
+              <p>Jutaan kenderaan berada di jalan raya dan semuanya perlukan servis berkala.</p>
+            </article>
+            <article className="fact-card reveal">
+              <span className="fact-num">2</span>
+              <h3>Cuaca Panas Terik</h3>
+              <p>Aircond ialah keperluan harian. Kerosakan biasanya tidak boleh ditangguhkan lama.</p>
+            </article>
+            <article className="fact-card reveal">
+              <span className="fact-num">3</span>
+              <h3>Dua Sumber Keuntungan</h3>
+              <ul>
+                <li>Margin alat ganti pada harga borong.</li>
+                <li>Upah servis, flushing dan troubleshooting.</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════
+          4 ▸ SOLUTION
+      ═══════════════════════════════════════════════ */}
+      <section id="solusi" className="section-block">
+        <div className="container two-col">
+          {/* Left — Text */}
+          <div className="reveal">
+            <p className="kick">Penyelesaian Berjenama</p>
+            <h2 className="section-title">
+              Tuan Tak Perlu Pandai Pegang Spanar Untuk Buka Bengkel.
+            </h2>
+            <p className="lead">
+              AAE ialah sistem perniagaan berstruktur di bawah Azam Auto Body Work &amp;
+              Services (M) Sdn. Bhd. Melalui BOMP, operasi utama disediakan untuk Tuan.
+            </p>
+
+            <SolutionAccordion />
+
+            <a className="btn btn-primary btn-large" href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20AAE" target="_blank" rel="noopener noreferrer" style={{ marginTop: '1.5rem' }}>
+              Saya Mahu Tahu Sistem AAE
+            </a>
+          </div>
+
+          {/* Right — Dashboard Mockup */}
+          <div className="dashboard reveal">
+            <div className="dash-top">
+              <b>AAE Business Dashboard</b>
+              <span className="dash-live">● Live</span>
+            </div>
+            <div className="dash-grid">
+              <div className="dash-card">
+                <small>Jualan Bulan Ini</small>
+                <b>RM39,023</b>
+              </div>
+              <div className="dash-card">
+                <small>Untung Kasar</small>
+                <b>43.11%</b>
+              </div>
+              <div className="dash-card">
+                <small>Stok Aktif</small>
+                <b>238 Item</b>
+              </div>
+              <div className="dash-card">
+                <small>Job Selesai</small>
+                <b>96 Unit</b>
+              </div>
+              <div className="dash-card dash-chart">
+                <small>Prestasi Mingguan</small>
+                <div className="dash-bars">
+                  <i style={{ height: '35%' }} />
+                  <i style={{ height: '52%' }} />
+                  <i style={{ height: '44%' }} />
+                  <i style={{ height: '70%' }} />
+                  <i style={{ height: '61%' }} />
+                  <i style={{ height: '86%' }} />
+                  <i style={{ height: '94%' }} />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════
+          5 ▸ TRUST / MoU
+      ═══════════════════════════════════════════════ */}
+      <section className="section-block trust-section">
+        <div className="container two-col">
+          {/* MoU Document */}
+          <div className="mou-card reveal">
+            <div className="mou-logos">
+              <span className="mou-mark">AAE</span>
+              <b>MEMORANDUM<br />OF UNDERSTANDING</b>
+              <span className="mou-mark mou-mark-light">KBS<br />IKTBN</span>
+            </div>
+            <h3 className="mou-title">Kerjasama Pembangunan Kemahiran Automotif</h3>
+            <p className="mou-body">
+              Dokumen MoU rasmi bersama IKTBN Bachok di bawah Kementerian Belia dan Sukan.
+            </p>
+            <div className="mou-sigs">
+              <span className="mou-sig">Wakil A-Cond Auto Expert</span>
+              <span className="mou-sig">Wakil IKTBN Bachok</span>
+            </div>
+          </div>
+
+          {/* Trust Points */}
+          <div className="reveal">
+            <p className="kick">Credential &amp; Trust</p>
+            <h2 className="section-title">Sistem Yang Dipercayai Institusi Kerajaan.</h2>
+            <p className="lead">
+              Kerjasama rasmi ini merangkumi pembangunan kurikulum, latihan industri,
+              jaminan pekerjaan dan perkongsian teknologi automotif.
+            </p>
+            <div className="trust-points">
+              <div className="trust-point">
+                <b>Kurikulum Teknikal</b>
+                <span>Membantu membentuk dan mengemas kini latihan pelajar.</span>
+              </div>
+              <div className="trust-point">
+                <b>Latihan Industri &amp; Kerjaya</b>
+                <span>Menyediakan tempat OJT dan laluan pekerjaan.</span>
+              </div>
+              <div className="trust-point">
+                <b>Pakar Rujuk Automotif</b>
+                <span>Perkongsian teknologi terkini kepada tenaga pengajar.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════
+          6 ▸ FOUNDER
+      ═══════════════════════════════════════════════ */}
+      <section className="section-block founder-section">
+        <div className="container two-col">
+          {/* Portrait */}
+          <div className="portrait reveal">
+            <img
+              src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&h=800&fit=crop&q=80"
+              alt="Boss Azam"
+            />
+            <div className="portrait-caption">
+              <b>Boss Azam</b>
+              <small>Pengasas AAE — Bekas anggota TUDM</small>
+            </div>
+          </div>
+
+          {/* Story */}
+          <div className="reveal">
+            <p className="kick gold">Inspirasi Pengasas</p>
+            <h2 className="section-title">Dari Uniform TUDM Ke Uniform Korporat.</h2>
+            <p className="lead light">
+              Boss Azam sendiri merupakan bekas anggota Tentera Udara Diraja Malaysia.
+              Beliau memahami jerih-perih, disiplin dan kebimbangan seorang pesara yang
+              mahu memulakan hidup baharu.
+            </p>
+            <blockquote className="founder-quote">
+              &ldquo;Kalau saya boleh buat dan bina sistem ini, saya yakin rakan-rakan pesara
+              di luar sana pasti boleh buat jauh lebih baik.&rdquo;
+            </blockquote>
+            <div className="founder-award">
+              <span className="award-icon"><Star size={20} /></span>
+              <div>
+                <b>Anugerah Ikon Usahawan Industri Automotif</b>
+                <br />
+                <small>Anugerah AURA MARA 2024–2025</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════
+          7 ▸ BENEFITS
+      ═══════════════════════════════════════════════ */}
+      <section className="section-block bg-workshop">
+        <div className="container">
+          <div className="section-header center reveal">
+            <p className="kick">Manfaat Secara Langsung</p>
+            <h2 className="section-title">Masuk Dengan Keyakinan. Operasi Disokong Oleh Sistem.</h2>
+          </div>
+
+          <div className="benefits-grid">
+            {[
+              { num: '01', title: 'Tak Perlu Pandai Baiki Kereta', desc: 'Latihan "Zero to Hero" untuk pemilik dan mekanik.' },
+              { num: '02', title: 'HQ Tolong Cari Pelanggan', desc: 'Sistem marketing berpusat untuk kawasan bengkel Tuan.' },
+              { num: '03', title: 'Kurangkan Ketirisan', desc: 'Stok dan transaksi direkod melalui sistem berkomputer.' },
+              { num: '04', title: 'Harga Barang Borong', desc: 'Akses alat ganti melalui rangkaian pembekal HQ.' },
+              { num: '05', title: 'Setup Penuh', desc: 'Ubah suai, mesin, sistem, stok dan susun atur bengkel.' },
+            ].map((b) => (
+              <article key={b.num} className="benefit-card reveal" data-n={b.num}>
+                <span className="benefit-icon">{b.num}</span>
+                <h3>{b.title}</h3>
+                <p>{b.desc}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════
+          8 ▸ SOCIAL PROOF (DARK)
+      ═══════════════════════════════════════════════ */}
+      <section id="bukti" className="section-block dark-section">
+        <div className="container proof-grid">
+          {/* Left — Metrics */}
+          <div className="reveal">
+            <p className="kick gold">Bukti Angka Sebenar</p>
+            <h2 className="section-title">
+              Prestasi Bulan Pertama Cawangan AAE Gua Musang.
+            </h2>
+            <p className="lead">
+              Rekod JBG Auto Garage menunjukkan potensi sistem apabila operasi, harga,
+              stok dan pemasaran bergerak dalam satu rangka kerja.
+            </p>
+
+            <div className="metrics">
+              <div className="metric-item">
+                <span>Jualan Keseluruhan</span>
+                <b>RM39,023.00</b>
+              </div>
+              <div className="metric-item">
+                <span>Untung Kasar — 43.11%</span>
+                <b>RM16,821.64</b>
+              </div>
+              <div className="metric-item metric-hot">
+                <span>Untung Bersih Masuk Poket</span>
+                <b>RM10,278.47</b>
+              </div>
+            </div>
+          </div>
+
+          {/* Right — ROI */}
+          <div className="roi-card reveal">
+            <small>Jangkaan Balik Modal</small>
+            <div className="roi-big">8–12</div>
+            <p>BULAN</p>
+            <small>Bergantung pada prestasi dan keadaan operasi sebenar.</small>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════
+          9 ▸ OFFER / INVESTMENT
+      ═══════════════════════════════════════════════ */}
+      <section id="tawaran" className="section-block">
+        <div className="container offer-grid">
+          {/* Price Card */}
+          <div className="price-card reveal">
+            <small>Anggaran Pelaburan Keseluruhan</small>
+            <div className="price-big">RM150,000</div>
+            <p>
+              Tiada kos tersembunyi. Anggaran ini merangkumi komponen utama untuk
+              memulakan bengkel AAE.
+            </p>
+            <div className="include-grid">
+              <span>✓ Yuran jenama</span>
+              <span>✓ Ubah suai kedai</span>
+              <span>✓ Komputer &amp; CCTV</span>
+              <span>✓ Mesin aircond</span>
+              <span>✓ Setem guaman</span>
+              <span>✓ Stok permulaan</span>
+            </div>
+          </div>
+
+          {/* Side Notes */}
+          <div className="side-notes">
+            <div className="side-note reveal">
+              <b>Bajet Belum Cukup?</b>
+              <p>
+                Pasukan boleh membantu menyediakan kertas kerja permohonan dana atau
+                pembiayaan seperti PUNB dan MARA.
+              </p>
+            </div>
+            <div className="side-note reveal">
+              <b>Hak Milik Mutlak 100%</b>
+              <p>
+                Ini bukan share saham. Bengkel ialah milik Tuan; AAE membekalkan sistem
+                dan jenama.
+              </p>
+            </div>
+            <div className="side-note reveal">
+              <b>Setup 1–2 Bulan</b>
+              <p>
+                Selepas lokasi disahkan, proses ubah suai dan setup penuh dianggarkan
+                mengambil masa satu hingga dua bulan.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════
+          10 ▸ GUARANTEE
+      ═══════════════════════════════════════════════ */}
+      <section className="section-block guarantee-section">
+        <div className="container two-col">
+          {/* Seal */}
+          <div className="guarantee-seal reveal">
+            <div>
+              <b>100%</b>
+              <span>Hak Milik Tuan</span>
+            </div>
+          </div>
+
+          {/* Text */}
+          <div className="reveal">
+            <p className="kick">Pembalikan Risiko</p>
+            <h2 className="section-title">Tuan Adalah Bos Besar Bengkel Tuan Sendiri.</h2>
+            <p className="lead">
+              AAE menyediakan sistem, latihan, jenama dan sokongan. Pemilikan perniagaan
+              kekal pada Tuan.
+            </p>
+            <div className="scarcity-notice">
+              <b>Kuota Mengikut Zon Adalah Terhad</b>
+              <span>
+                Demi menjaga kualiti dan eksklusiviti, satu kawasan tidak dibuka secara
+                berlebihan. Zon yang telah diambil mungkin tidak lagi tersedia.
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════
+          11 ▸ CTA
+      ═══════════════════════════════════════════════ */}
+      <section id="hubungi" className="section-block cta-section">
+        <div className="container">
+          <div className="cta-box reveal">
+            <span className="hero-tag">Langkah Pertama Tanpa Bayaran</span>
+            <h2 className="section-title" style={{ marginTop: '1.25rem' }}>
+              Jangan Terus Melabur. Sembang Dengan Kami Dahulu.
+            </h2>
+            <p className="lead">
+              Tuan tidak perlu bayar apa-apa hari ini. Fahami model perniagaan, semak
+              kawasan dan lihat sendiri sistem sebelum membuat keputusan.
+            </p>
+
+            <div className="steps-grid">
+              <div className="step-card">
+                <b>01</b>
+                <span>Tekan butang WhatsApp.</span>
+              </div>
+              <div className="step-card">
+                <b>02</b>
+                <span>Sembang kopi-kopi secara bersemuka atau online.</span>
+              </div>
+              <div className="step-card">
+                <b>03</b>
+                <span>Bila Tuan nampak jalan, barulah kita bergerak.</span>
+              </div>
+            </div>
+
+            <a
+              className="btn btn-wa btn-large"
+              href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20untuk%20sembang%20santai%20tentang%20peluang%20bengkel%20AAE%20khas%20pesara%20tentera."
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Saya Berminat Nak Sembang Santai Dulu <ArrowRight size={20} />
             </a>
           </div>
         </div>
       </section>
 
-      {/* Problem Section */}
-      <section id="masalah" className="section" style={{ overflow: 'hidden', position: 'relative' }}>
-        <div className="ambient-glow-red" style={{ top: '-20%', left: '-15%' }}></div>
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <p className="text-red uppercase tracking-wide bold text-center reveal" style={{ fontSize: '0.875rem', marginBottom: '1rem', letterSpacing: '2px' }}>KENALI MASALAH TUAN</p>
-          <h2 className="section-title text-center reveal">Adakah Tuan Sedang Berhadapan Situasi Begini?</h2>
-          
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(300px, 100%), 1fr))', gap: '1.5rem' }} className="reveal">
-            
-            {/* Card 1 — Financial Risk */}
-            <div style={{ borderRadius: 'var(--radius-md)', overflow: 'hidden', border: '1px solid rgba(220,38,38,0.25)', background: 'var(--bg-secondary)', transition: 'transform 0.4s ease, box-shadow 0.4s ease' }} className="problem-card">
-              <div style={{ position: 'relative', height: '200px', overflow: 'hidden' }}>
-                <img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=600&h=400&fit=crop&q=80" alt="Risiko Kewangan" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, var(--bg-secondary) 0%, transparent 60%)' }}></div>
-                <div style={{ position: 'absolute', top: '1rem', left: '1rem', width: '40px', height: '40px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--red-primary), var(--red-highlight))', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Target size={20} style={{ color: '#fff' }} />
-                </div>
-              </div>
-              <div style={{ padding: '1.25rem 1.5rem 1.75rem' }}>
-                <h3 style={{ marginBottom: '0.75rem', fontSize: '1.15rem' }}>Ada duit tapi tak tahu arah</h3>
-                <p className="text-muted" style={{ lineHeight: 1.7, fontSize: '0.95rem' }}>Takut lebur dan pisang berbuah dua kali kalau tersalah langkah atau ditipu pihak tak bertanggungjawab.</p>
-              </div>
-            </div>
-            
-            {/* Card 2 — No Experience */}
-            <div style={{ borderRadius: 'var(--radius-md)', overflow: 'hidden', border: '1px solid rgba(251,191,36,0.25)', background: 'var(--bg-secondary)', transition: 'transform 0.4s ease, box-shadow 0.4s ease' }} className="problem-card">
-              <div style={{ position: 'relative', height: '200px', overflow: 'hidden' }}>
-                <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=600&h=400&fit=crop&q=80" alt="Risiko Prestasi" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, var(--bg-secondary) 0%, transparent 60%)' }}></div>
-                <div style={{ position: 'absolute', top: '1rem', left: '1rem', width: '40px', height: '40px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--yellow-primary), var(--yellow-highlight))', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Lightbulb size={20} style={{ color: '#000' }} />
-                </div>
-              </div>
-              <div style={{ padding: '1.25rem 1.5rem 1.75rem' }}>
-                <h3 style={{ marginBottom: '0.75rem', fontSize: '1.15rem' }}>Minat ada, kosong pengalaman</h3>
-                <p className="text-muted" style={{ lineHeight: 1.7, fontSize: '0.95rem' }}>Minat nak berniaga, tapi tak ada pengalaman urus bisnes atau teknikal kereta.</p>
-              </div>
-            </div>
-            
-            {/* Card 3 — Trapped */}
-            <div style={{ borderRadius: 'var(--radius-md)', overflow: 'hidden', border: '1px solid rgba(37,99,235,0.25)', background: 'var(--bg-secondary)', transition: 'transform 0.4s ease, box-shadow 0.4s ease' }} className="problem-card">
-              <div style={{ position: 'relative', height: '200px', overflow: 'hidden' }}>
-                <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=600&h=400&fit=crop&q=80" alt="Risiko Masa" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, var(--bg-secondary) 0%, transparent 60%)' }}></div>
-                <div style={{ position: 'absolute', top: '1rem', left: '1rem', width: '40px', height: '40px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--blue-primary), var(--blue-highlight))', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <Clock size={20} style={{ color: '#fff' }} />
-                </div>
-              </div>
-              <div style={{ padding: '1.25rem 1.5rem 1.75rem' }}>
-                <h3 style={{ marginBottom: '0.75rem', fontSize: '1.15rem' }}>Terperangkap di kedai</h3>
-                <p className="text-muted" style={{ lineHeight: 1.7, fontSize: '0.95rem' }}>Nak bisnes yang berautomasi supaya ada masa berkualiti untuk keluarga tanpa terperuk di kedai 24 jam.</p>
-              </div>
-            </div>
-            
-          </div>
-        </div>
-      </section>
-
-      {/* Solution Section */}
-      <section id="solusi" className="section" style={{ position: 'relative', overflow: 'hidden' }}>
-        <div className="ambient-glow-blue" style={{ right: 'auto', left: '-20%', top: '20%' }}></div>
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <h2 className="section-title text-blue reveal">Sistem Terbukti Bersama AAE</h2>
-          <div className="grid grid-2 reveal">
-            <div>
-              <p className="text-muted" style={{ fontSize: '1.125rem' }}>
-                Perniagaan berstruktur di bawah naungan <strong>Azam Auto Body Work & Services (M) Sdn Bhd</strong>. Melalui <em>Brand Operating Monitoring Programme (BOMP)</em>, kami memindahkan segala kepakaran operasi, teknikal, dan pentadbiran terus ke tangan Tuan.
-              </p>
-              
-              <div className="solid-card mt-10" style={{ backgroundColor: 'var(--bg-tertiary)', borderLeft: '4px solid var(--blue-primary)' }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem' }}>
-                  <Trophy className="text-yellow flex-shrink-0" size={28} style={{ marginTop: '2px' }} />
-                  <p style={{ margin: 0 }}><strong>Kredibiliti Diiktiraf:</strong> Penerima Anugerah Ikon Usahawan Industri Automotif Negeri Kelantan 2024-2025 melalui Anugerah AURA MARA.</p>
-                </div>
-              </div>
-            </div>
-            <div>
-              <ul className="check-list">
-                <li>
-                  <CheckCircle2 className="check-icon text-blue" size={24} />
-                  <div><strong>SOP Dah Sedia Ada:</strong> Pantau jualan dan inventori secara real-time melalui sistem Webmax.</div>
-                </li>
-                <li>
-                  <CheckCircle2 className="check-icon text-blue" size={24} />
-                  <div><strong>Marketing Kami Yang Buat:</strong> Iklan berpusat agresif diuruskan sepenuhnya oleh HQ.</div>
-                </li>
-                <li>
-                  <CheckCircle2 className="check-icon text-blue" size={24} />
-                  <div><strong>Latihan Zero ke Hero:</strong> Latihan teknikal & pengurusan berstruktur disediakan.</div>
-                </li>
-                <li>
-                  <CheckCircle2 className="check-icon text-blue" size={24} />
-                  <div><strong>Margin Tinggi:</strong> Keistimewaan harga pemborong terus dari HQ.</div>
-                </li>
-                <li>
-                  <CheckCircle2 className="check-icon text-blue" size={24} />
-                  <div><strong>Sokongan Kewangan & Susun Atur:</strong> Bantuan set infrastruktur Standard OEM & dana PUNB/MARA.</div>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="table-container mt-10">
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th>Kategori Barang</th>
-                  <th>Harga Pemborong (RM)</th>
-                  <th>Untung Kasar (RM)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td>Minyak Enjin Lubrex 5W40 (4L)</td><td>105.00</td><td className="text-green bold">38.00</td></tr>
-                <tr><td>Pemampat Denso Tulen</td><td>350.00</td><td className="text-green bold">145.00</td></tr>
-                <tr><td>Blower Motor Myvi/Alza Local</td><td>80.00</td><td className="text-green bold">55.00</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      {/* Social Proof */}
-      <section id="bukti" className="section" style={{ position: 'relative', overflow: 'hidden', backgroundImage: 'url("/workshop-bg.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}>
-        <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(10, 15, 29, 0.85)', zIndex: 0 }}></div>
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <h2 className="section-title mb-2 reveal">Bukti Realiti On-Ground Result</h2>
-          <p className="text-muted mb-6 reveal" style={{ fontSize: '1.125rem' }}>Prestasi Cawangan AAE Gua Musang (Bulan 1 - Sept 2025)</p>
-
-          <div className="stats-grid reveal">
-            <div className="stat-card">
-              <TrendingUp className="text-white mb-4" size={28} />
-              <span className="stat-label">Jumlah Jualan</span>
-              <span className="stat-value">RM 39,023.00</span>
-            </div>
-            <div className="stat-card" style={{ borderColor: 'var(--gold-primary)', backgroundColor: 'var(--bg-tertiary)' }}>
-              <Banknote className="text-gold mb-4" size={28} />
-              <span className="stat-label text-gold">Keuntungan Kasar</span>
-              <span className="stat-value text-gold">RM 16,821.64</span>
-              <span className="text-muted" style={{ fontSize: '0.875rem', marginTop: '0.5rem', display: 'block' }}>(Margin: 43.11%)</span>
-            </div>
-            <div className="stat-card">
-              <CheckCircle2 className="text-green mb-4" size={28} />
-              <span className="stat-label text-green">Keuntungan Bersih</span>
-              <span className="stat-value text-green">RM 10,278.47</span>
-            </div>
-          </div>
-          
-          <div className="mt-10" style={{ display: 'inline-block', backgroundColor: 'rgba(16,185,129,0.1)', border: '1px solid var(--green-primary)', padding: '1rem 2rem', borderRadius: 'var(--radius-sm)' }}>
-            <strong className="text-green">Jangkaan Titik Pulang Modal (ROI): 8 hingga 12 bulan sahaja!</strong>
-          </div>
-        </div>
-      </section>
-
-      {/* Offer Section */}
-      <section id="tawaran" className="section bg-grid-pattern" style={{ overflow: 'hidden' }}>
-        <div className="container" style={{ maxWidth: '900px' }}>
-          <h2 className="section-title text-center">Transparensi Modal Pelaburan</h2>
-          <div className="table-container">
-            <table className="data-table">
-              <thead>
-                <tr>
-                  <th>Kategori Perbelanjaan</th>
-                  <th style={{ textAlign: 'right' }}>Anggaran Kos (RM)</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><td>Yuran Program (Brand Fee - Termasuk Latihan & Papan Tanda)</td><td style={{ textAlign: 'right' }}>20,000.00</td></tr>
-                <tr><td>Infrastruktur & Pengubahsuaian</td><td style={{ textAlign: 'right' }}>25,000.00</td></tr>
-                <tr><td>Sistem & Pentadbiran</td><td style={{ textAlign: 'right' }}>14,000.00</td></tr>
-                <tr><td>Kelengkapan Automotif</td><td style={{ textAlign: 'right' }}>30,500.00</td></tr>
-                <tr><td>Pematuhan Perundangan</td><td style={{ textAlign: 'right' }}>4,500.00</td></tr>
-                <tr><td>Inventori Permulaan & Modal Pusingan</td><td style={{ textAlign: 'right' }}>56,000.00</td></tr>
-                <tr className="total-row"><td>JUMLAH KESELURUHAN (ANGGARAN)</td><td className="text-gold" style={{ textAlign: 'right', fontSize: '1.25rem' }}>150,000.00</td></tr>
-              </tbody>
-            </table>
-          </div>
-          <div className="mt-6">
-            <p className="text-muted mb-6 text-center" style={{ fontStyle: 'italic' }}>*Nota: Jika bajet Tuan kurang dari jumlah ini, beritahu kami. HQ sedia membimbing permohonan pembiayaan agensi!</p>
-            <div className="solid-card" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', backgroundColor: 'var(--bg-tertiary)' }}>
-              <ShieldCheck className="text-gold flex-shrink-0" size={32} />
-              <p><strong>Jaminan 100% Hak Milik Mutlak:</strong> Tuan adalah pemilik mutlak perniagaan dan aset bengkel tanpa campur tangan hak milik.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Scarcity & CTA */}
-      <section className="scarcity-banner reveal">
+      {/* ═══════════════════════════════════════════════
+          12 ▸ FAQ
+      ═══════════════════════════════════════════════ */}
+      <section className="section-block">
         <div className="container">
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', backgroundColor: 'var(--red-primary)', color: 'white', padding: '0.5rem 1.5rem', borderRadius: 'var(--radius-full)', marginBottom: '1.5rem' }}>
-            <Flame size={24} />
-            <span style={{ fontWeight: 700, letterSpacing: '1px' }}>ZON KAWASAN TERHAD</span>
+          <div className="section-header center">
+            <p className="kick">Soalan Lazim</p>
+            <h2 className="section-title">Perkara Yang Selalu Ditanya.</h2>
           </div>
-          <h2 className="section-title text-red" style={{ marginBottom: '1.5rem', fontSize: 'clamp(2rem, 5vw, 3rem)' }}>PELUANG SANGAT TERHAD!</h2>
-          <p style={{ fontSize: '1.25rem', maxWidth: '800px', margin: '0 auto 2.5rem', fontWeight: 600, lineHeight: 1.6 }}>
-            Tindakan pantas diperlukan sebelum zon kawasan Tuan dipenuhi. Jangan biarkan duit pencen lebur begitu sahaja di bank atau hangus ke tangan scammer kerana tiada hala tuju. Bina legasi perniagaan yang kukuh untuk anak cucu hari ini.
-          </p>
-          <a href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20AAE" className="btn btn-red btn-large" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', fontSize: '1.125rem' }}>
-            SAYA BERMINAT! NAK SEMBANG SANTAI <ArrowRight size={24} />
-          </a>
-          <p style={{ marginTop: '1.5rem', fontWeight: 700, opacity: 0.85 }}>Kita sembang dari hati ke hati tanpa sebarang komitmen kewangan untuk hari ini.</p>
-        </div>
-      </section>
 
-      {/* FAQ Section */}
-      <section className="section" style={{ position: 'relative', overflow: 'hidden' }}>
-        <div className="ambient-glow-red" style={{ top: '0%', left: 'auto', right: '-10%' }}></div>
-        <div className="container" style={{ position: 'relative', zIndex: 1 }}>
-          <h2 className="section-title text-center reveal">Soalan Lazim (FAQ)</h2>
-          <div className="faq-container reveal" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '800px', margin: '0 auto' }}>
-            
-            <details className="faq-item">
+          <div className="faq-list">
+            <details className="faq-item" open>
               <summary className="faq-summary">
-                <span style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <MessageCircleQuestion className="text-blue" size={24} />
-                  Adakah saya perlu pandai baiki kereta untuk buka bengkel AAE?
-                </span>
+                <span>Saya memang buta bab enjin dan aircond. Boleh ke buat?</span>
                 <ChevronDown className="faq-icon" size={20} />
               </summary>
               <div className="faq-content">
-                Tidak. Modul latihan Zero to Hero kami akan melatih Tuan pengurusan, dan mekanik dari segi teknikal. Automasi webmax bantu Tuan memantau kerja.
+                Boleh. Tugas utama Tuan ialah mengurus dan memantau pekerja menggunakan
+                sistem yang disediakan. Latihan pengurusan dan teknikal akan diberikan.
               </div>
             </details>
 
             <details className="faq-item">
               <summary className="faq-summary">
-                <span style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  <MessageCircleQuestion className="text-gold" size={24} />
-                  Bagaimana jika modal pencen saya tak cukup RM150,000?
-                </span>
+                <span>Berapa lama nak siapkan bengkel?</span>
                 <ChevronDown className="faq-icon" size={20} />
               </summary>
               <div className="faq-content">
-                Jangan risau. Pasukan AABW sedia membimbing dan menguruskan permohonan pembiayaan agensi kerajaan seperti PUNB atau MARA.
+                Selepas lokasi disahkan, proses ubah suai dan setup penuh dianggarkan
+                mengambil masa lebih kurang satu hingga dua bulan.
               </div>
             </details>
 
+            <details className="faq-item">
+              <summary className="faq-summary">
+                <span>Betul ke HQ bantu bab marketing?</span>
+                <ChevronDown className="faq-icon" size={20} />
+              </summary>
+              <div className="faq-content">
+                Ya. Pasukan marketing HQ akan menjalankan kempen Facebook, TikTok dan
+                Google yang memfokuskan penduduk sekitar radius bengkel.
+              </div>
+            </details>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
+      {/* ═══════════════════════════════════════════════
+          13 ▸ WARNING BANNER
+      ═══════════════════════════════════════════════ */}
+      <section className="warning-banner">
+        <div className="container warning-inner">
+          <span className="warning-icon">!</span>
+          <div>
+            <h2>Duit Pencen Itu Hasil Titik Peluh Tuan.</h2>
+            <p>
+              Jangan biarkan ia susut tanpa arah atau lebur di tangan orang yang salah.
+              Bina perniagaan bersistem yang boleh diwarisi anak cucu.
+            </p>
+          </div>
+          <a className="btn btn-ghost" href="#hubungi">Bertindak Sekarang</a>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════════
+          14 ▸ FOOTER
+      ═══════════════════════════════════════════════ */}
       <footer className="footer">
         <div className="container" style={{ paddingTop: '4rem', paddingBottom: '3rem' }}>
           <div className="footer-grid">
-            
             {/* Column 1: Brand & Socials */}
             <div className="footer-col">
               <h2 className="text-white" style={{ marginBottom: '1.25rem' }}>
@@ -369,10 +749,10 @@ export default function Home() {
               </p>
               <div className="social-links">
                 <a href="https://www.tiktok.com/@azamautohqkubangkerian" className="social-icon" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z"/></svg>
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z" /></svg>
                 </a>
                 <a href="https://www.facebook.com/profile.php?id=100067465844743&mibextid=wwXIfr" className="social-icon" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>
                 </a>
                 <a href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20AAE" className="social-icon" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
                   <MessageCircle size={18} />
@@ -397,9 +777,9 @@ export default function Home() {
                   <span>adminhq@aabwsb.com</span>
                 </li>
               </ul>
-              
-              <div className="footer-divider"></div>
-              
+
+              <div className="footer-divider" />
+
               <h3 className="footer-heading text-blue">WAKTU OPERASI</h3>
               <p className="text-muted mb-1" style={{ fontSize: '0.95rem' }}>Sab - Kha: 9:30 AM - 6:00 PM</p>
               <p className="text-red" style={{ fontWeight: 700, fontSize: '0.95rem' }}>Jumaat: Tutup</p>
@@ -409,24 +789,23 @@ export default function Home() {
             <div className="footer-col">
               <h3 className="footer-heading text-blue">CARI KAMI</h3>
               <div className="map-container" style={{ width: '100%', height: '100%', minHeight: '200px' }}>
-                <iframe 
-                  src="https://maps.google.com/maps?q=Lot+1966a,+Jalan+Wakaf+Stan,+Kubang+Kerian,+16150+Kota+Bharu,+Kelantan&t=&z=15&ie=UTF8&iwloc=&output=embed" 
-                  width="100%" 
-                  height="100%" 
-                  style={{ border: 0, borderRadius: 'var(--radius-md)', minHeight: '200px' }} 
-                  allowFullScreen={false} 
-                  loading="lazy" 
-                  referrerPolicy="no-referrer-when-downgrade">
-                </iframe>
+                <iframe
+                  src="https://maps.google.com/maps?q=Azam+Auto+Body+Work+Kubang+Kerian&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, borderRadius: 'var(--radius-md)', minHeight: '200px' }}
+                  allowFullScreen={false}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
               </div>
             </div>
-
           </div>
         </div>
-        
+
         <div className="footer-bottom">
           <div className="container">
-            <p>© {new Date().getFullYear()} AZAM AUTO BODYWORKS & SERVICES (M) SDN BHD. Hak Cipta Terpelihara.</p>
+            <p>© {new Date().getFullYear()} AZAM AUTO BODYWORKS &amp; SERVICES (M) SDN BHD. Hak Cipta Terpelihara.</p>
           </div>
         </div>
       </footer>
