@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import {
   ArrowRight,
@@ -12,7 +12,58 @@ import {
   MessageCircle,
   Star,
   Check,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
+
+const GALLERY_IMAGES = [
+  { src: '/img1.jpg', alt: 'Kenangan TUDM — Bersama rakan-rakan di pangkalan' },
+  { src: '/img2.jpg', alt: 'Kenangan TUDM — Latihan di lapangan' },
+  { src: '/img4.jpg', alt: 'Kenangan TUDM — Tugas rasmi' },
+  { src: '/img6.jpg', alt: 'Kenangan TUDM — Kawad dan formasi' },
+  { src: '/img7.jpg', alt: 'Kenangan TUDM — Pasukan bersama' },
+];
+
+function Lightbox({ images, startIndex, onClose }: { images: typeof GALLERY_IMAGES; startIndex: number; onClose: () => void }) {
+  const [idx, setIdx] = useState(startIndex);
+
+  const goPrev = useCallback(() => setIdx((i) => (i - 1 + images.length) % images.length), [images.length]);
+  const goNext = useCallback(() => setIdx((i) => (i + 1) % images.length), [images.length]);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowLeft') goPrev();
+      if (e.key === 'ArrowRight') goNext();
+    };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handler);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handler);
+    };
+  }, [onClose, goPrev, goNext]);
+
+  return (
+    <div className="lightbox-overlay" onClick={onClose}>
+      <button className="lightbox-close" onClick={onClose} aria-label="Close"><X size={28} /></button>
+
+      <button className="lightbox-nav lightbox-prev" onClick={(e) => { e.stopPropagation(); goPrev(); }} aria-label="Previous">
+        <ChevronLeft size={32} />
+      </button>
+
+      <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+        <img src={images[idx].src} alt={images[idx].alt} loading="lazy" />
+        <p className="lightbox-caption">{images[idx].alt}</p>
+        <span className="lightbox-counter">{idx + 1} / {images.length}</span>
+      </div>
+
+      <button className="lightbox-nav lightbox-next" onClick={(e) => { e.stopPropagation(); goNext(); }} aria-label="Next">
+        <ChevronRight size={32} />
+      </button>
+    </div>
+  );
+}
 
 const HERO_SLIDES = [
   {
@@ -22,10 +73,10 @@ const HERO_SLIDES = [
     sub: 'Bengkel aktif dan pencahayaan premium.',
   },
   {
-    src: 'https://images.unsplash.com/photo-1541746972996-4e0b0f43e02a?w=800&h=1000&fit=crop&q=80',
+    src: '/img3.jpg',
     alt: 'Wira Negara',
     label: 'Wira Negara',
-    sub: 'Visual asal-usul dan kredibiliti.',
+    sub: 'Pengasas AAE semasa dalam TUDM.',
   },
 ];
 
@@ -83,6 +134,7 @@ function SolutionAccordion() {
 
 export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -112,11 +164,11 @@ export default function Home() {
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
 
-          <Link href="/" className="nav-brand" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <a href="#" className="nav-brand" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0 }); }}>
             <img src="/aae-logo.png" alt="A-Cond Auto Expert" className="nav-logo" />
             <div className="nav-brand-divider"></div>
             <img src="/azam-auto-logo-nobg.png" alt="Azam Auto Logo" className="nav-logo azam-logo" />
-          </Link>
+          </a>
 
           <div className="nav-links desktop-only">
             <a href="#masalah" className="nav-link">Masalah</a>
@@ -439,8 +491,9 @@ export default function Home() {
           {/* Portrait */}
           <div className="portrait reveal">
             <img
-              src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&h=800&fit=crop&q=80"
+              src="/img5.jpg"
               alt="Boss Azam"
+              loading="lazy"
             />
             <div className="portrait-caption">
               <b>Boss Azam</b>
@@ -457,6 +510,14 @@ export default function Home() {
               Beliau memahami jerih-perih, disiplin dan kebimbangan seorang pesara yang
               mahu memulakan hidup baharu.
             </p>
+            <div className="founder-gallery">
+              {GALLERY_IMAGES.map((img, i) => (
+                <div key={i} className="founder-gallery-thumb" onClick={() => setLightboxIdx(i)}>
+                  <img src={img.src} alt={img.alt} loading="lazy" />
+                  <div className="founder-gallery-zoom"><ArrowRight size={16} /></div>
+                </div>
+              ))}
+            </div>
             <blockquote className="founder-quote">
               &ldquo;Kalau saya boleh buat dan bina sistem ini, saya yakin rakan-rakan pesara
               di luar sana pasti boleh buat jauh lebih baik.&rdquo;
@@ -807,6 +868,10 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {lightboxIdx !== null && (
+        <Lightbox images={GALLERY_IMAGES} startIndex={lightboxIdx} onClose={() => setLightboxIdx(null)} />
+      )}
     </>
   );
 }

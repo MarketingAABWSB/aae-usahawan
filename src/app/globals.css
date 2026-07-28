@@ -46,7 +46,7 @@
 /* ═══════════════════════════════════════════
    BASE
 ═══════════════════════════════════════════ */
-html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+html { scroll-padding-top: 80px; }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -118,7 +118,7 @@ h3 { line-height: 1.16; font-weight: 700; }
   position: relative;
   background: 
     linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(10,15,29,0.85)),
-    url('/workshop-bg.jpg') center/cover no-repeat fixed;
+    url('/workshop-bg.jpg') center/cover no-repeat;
   color: #fff;
 }
 .two-col {
@@ -776,6 +776,7 @@ h3 { line-height: 1.16; font-weight: 700; }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top;
   position: absolute;
   inset: 0;
 }
@@ -822,6 +823,148 @@ h3 { line-height: 1.16; font-weight: 700; }
   flex-shrink: 0;
 }
 .founder-award small { color: var(--text-muted); }
+
+/* Founder Gallery */
+.founder-gallery {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin: 1.5rem 0;
+}
+
+.founder-gallery-thumb {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border-color 0.25s, transform 0.25s;
+}
+.founder-gallery-thumb:hover {
+  border-color: var(--gold-primary);
+  transform: translateY(-3px);
+}
+.founder-gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s;
+}
+.founder-gallery-thumb:hover img {
+  transform: scale(1.08);
+}
+.founder-gallery-zoom {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  transition: opacity 0.25s;
+  color: #fff;
+}
+.founder-gallery-thumb:hover .founder-gallery-zoom {
+  opacity: 1;
+}
+
+/* ═══════════════════════════════════════════
+   LIGHTBOX
+═══════════════════════════════════════════ */
+@keyframes lightboxFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes lightboxZoomIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: lightboxFadeIn 0.25s ease;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  z-index: 10;
+}
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  z-index: 10;
+}
+.lightbox-nav:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+.lightbox-prev { left: 1.5rem; }
+.lightbox-prev:hover { transform: translateY(-50%) translateX(-3px); }
+.lightbox-next { right: 1.5rem; }
+.lightbox-next:hover { transform: translateY(-50%) translateX(3px); }
+
+.lightbox-content {
+  max-width: min(90vw, 900px);
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: lightboxZoomIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lightbox-content img {
+  max-width: 100%;
+  max-height: 72vh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6);
+}
+.lightbox-caption {
+  margin-top: 16px;
+  color: #c5d0dd;
+  font-size: 0.95rem;
+  text-align: center;
+}
+.lightbox-counter {
+  margin-top: 6px;
+  color: #6b7a8d;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
 
 /* ═══════════════════════════════════════════
    7 ▸ BENEFITS
@@ -1225,7 +1368,6 @@ details[open] .faq-icon { transform: rotate(180deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }
 
@@ -1338,6 +1480,8 @@ details[open] .faq-icon { transform: rotate(180deg); }
   .warning-banner .btn { width: 100%; }
 
   .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+
+  .founder-gallery { grid-template-columns: repeat(3, 1fr); }
 
   .floating-cta {
     bottom: 1rem;
