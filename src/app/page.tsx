@@ -70,7 +70,7 @@ const HERO_SLIDES = [
     src: 'https://images.unsplash.com/photo-1625047509248-ec889cbff17f?w=800&h=1000&fit=crop&q=80',
     alt: 'Bengkel AAE',
     label: 'Bengkel AAE',
-    sub: 'Bengkel aktif dan pencahayaan premium.',
+    sub: 'Fasiliti bengkel yang moden, selesa dan profesional.',
   },
   {
     src: '/img3.jpg',
