@@ -223,7 +223,7 @@ export default function Home() {
             </p>
 
             <div className="hero-actions">
-              <a className="btn btn-primary btn-large" href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20AAE" target="_blank" rel="noopener noreferrer">Lihat Peluang Perniagaan</a>
+              <a className="btn btn-primary btn-large" href="#peluang">Lihat Peluang Perniagaan</a>
               <a className="btn btn-ghost" href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20AAE" target="_blank" rel="noopener noreferrer">Sembang Santai Dulu</a>
             </div>
 
@@ -442,19 +442,34 @@ export default function Home() {
         <div className="container two-col">
           {/* MoU Document */}
           <div className="mou-card reveal">
-            <div className="mou-logos">
-              <span className="mou-mark">AAE</span>
-              <b>MEMORANDUM<br />OF UNDERSTANDING</b>
-              <span className="mou-mark mou-mark-light">KBS<br />IKTBN</span>
+            <div className="mou-logos" style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+              <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start' }}>
+                <div style={{ background: '#0f172a', padding: '6px 12px', borderRadius: '8px', display: 'flex', alignItems: 'center' }}>
+                  <img src="/aae-logo.png" alt="AAE Logo" style={{ maxHeight: '35px', maxWidth: '100%', objectFit: 'contain' }} />
+                </div>
+              </div>
+              <div style={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+                <b style={{ fontSize: '0.8rem', textAlign: 'center' }}>MEMORANDUM<br />OF UNDERSTANDING</b>
+              </div>
+              <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+                <img src="/iktbn-logo.png" alt="IKTBN Logo" style={{ maxHeight: '60px', maxWidth: '100%', objectFit: 'contain' }} />
+              </div>
             </div>
             <h3 className="mou-title">Kerjasama Pembangunan Kemahiran Automotif</h3>
-            <p className="mou-body">
-              Dokumen MoU rasmi bersama IKTBN Bachok di bawah Kementerian Belia dan Sukan.
-            </p>
-            <div className="mou-sigs">
-              <span className="mou-sig">Wakil A-Cond Auto Expert</span>
-              <span className="mou-sig">Wakil IKTBN Bachok</span>
+            <div className="mou-body" style={{ textAlign: 'justify', fontSize: '0.9rem', lineHeight: '1.6' }}>
+              <p>
+                <strong>BACHOK:</strong> Institut Kemahiran Tinggi Belia Negara (IKTBN) Bachok telah memeterai Memorandum Persefahaman (MoU) dengan rakan industri, iaitu Azam Auto Body Work &amp; Services (M) Sdn. Bhd. dan Grand Riverview Hotel pada 2 Julai lalu. Majlis menandatangani MoU tersebut telah berlangsung di Bilik Mesyuarat Utama IKTBN Bachok bermula jam 10.00 pagi. Majlis ini turut diserikan dengan kehadiran Pengarah IKTBN Bachok, Encik Mohd Soufi Bin Mohd Ibrahim serta wakil-wakil daripada pihak syarikat.
+              </p>
+              <br />
+              <p>
+                Menerusi jalinan kerjasama strategik bersama Azam Auto Body Work &amp; Services, kedua-dua pihak telah mencapai persefahaman dalam beberapa skop utama bagi memperkasakan ekosistem latihan kemahiran. Antara inisiatif yang ditekankan adalah penyediaan penempatan Latihan Industri (LI) dan pembukaan peluang pekerjaan kepada pelajar IKTBN sebaik sahaja mereka menamatkan latihan. Selain itu, program ini juga akan memberi manfaat kepada tenaga pengajar menerusi Latihan Sangkutan Industri (LSI).
+              </p>
+              <br />
+              <p>
+                Pihak industri turut komited untuk menyumbang kepakaran teknologi, bahan guna habis, kelengkapan mesin latihan, serta memberikan khidmat nasihat bagi menambah baik kurikulum latihan sedia ada agar selari dengan keperluan semasa. Sebagai timbal balik, pihak IKTBN Bachok akan terus menyokong pihak industri dengan menawarkan penyertaan dalam program-program anjuran Kementerian Belia dan Sukan (KBS) seperti pameran interaktif dan temu duga terbuka. Langkah proaktif ini dijangka akan terus melonjakkan kebolehpasaran graduan TVET dan merapatkan hubungan antara institusi latihan kerajaan dengan sektor swasta.
+              </p>
             </div>
+
           </div>
 
           {/* Trust Points */}
@@ -479,6 +494,17 @@ export default function Home() {
                 <span>Perkongsian teknologi terkini kepada tenaga pengajar.</span>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div className="container reveal" style={{ marginTop: '80px', maxWidth: '850px' }}>
+          <div className="section-header center">
+            <h3 style={{ color: '#fff', fontSize: '1.6rem', marginBottom: '25px' }}>Sekitar Majlis Menandatangani MoU</h3>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr 1fr', gap: '15px', alignItems: 'center' }}>
+            <img src="/iktbn1.jpeg" alt="Bergambar bersama Pengarah" style={{ width: '100%', borderRadius: '12px', objectFit: 'cover', aspectRatio: '4/3', boxShadow: '0 4px 15px rgba(0,0,0,0.3)' }} />
+            <img src="/tandatangan_iktbn.jpeg" alt="Sesi Tandatangan MoU" style={{ width: '100%', borderRadius: '12px', objectFit: 'cover', aspectRatio: '4/3', boxShadow: '0 4px 15px rgba(0,0,0,0.3)', transform: 'scale(1.05)', zIndex: 1, position: 'relative' }} />
+            <img src="/iktbn2.jpeg" alt="Mesyuarat IKTBN" style={{ width: '100%', borderRadius: '12px', objectFit: 'cover', aspectRatio: '4/3', boxShadow: '0 4px 15px rgba(0,0,0,0.3)' }} />
           </div>
         </div>
       </section>
