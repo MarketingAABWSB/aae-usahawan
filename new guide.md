@@ -1548,7 +1548,7 @@
                     </div>
                 </div>
                 <div class="roi reveal"><small>Jangkaan Balik Modal</small>
-                    <div class="roiBig">8–12</div>
+                    <div class="roiBig">18</div>
                     <p>BULAN</p><small>Bergantung pada prestasi dan keadaan operasi sebenar.</small>
                 </div>
             </div>

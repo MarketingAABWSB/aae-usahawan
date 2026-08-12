@@ -24,6 +24,12 @@ const GALLERY_IMAGES = [
   { src: '/img7.jpg', alt: 'Kenangan TUDM — Pasukan bersama' },
 ];
 
+const MOU_IMAGES = [
+  { src: '/iktbn1.jpeg', alt: '' },
+  { src: '/tandatangan_iktbn.jpeg', alt: '' },
+  { src: '/iktbn2.jpeg', alt: '' },
+];
+
 function Lightbox({ images, startIndex, onClose }: { images: typeof GALLERY_IMAGES; startIndex: number; onClose: () => void }) {
   const [idx, setIdx] = useState(startIndex);
 
@@ -135,6 +141,7 @@ function SolutionAccordion() {
 export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
+  const [mouLightboxIdx, setMouLightboxIdx] = useState<number | null>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -502,9 +509,9 @@ export default function Home() {
             <h3 style={{ color: '#fff', fontSize: '1.6rem', marginBottom: '25px' }}>Sekitar Majlis Menandatangani MoU</h3>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.2fr 1fr', gap: '15px', alignItems: 'center' }}>
-            <img src="/iktbn1.jpeg" alt="Bergambar bersama Pengarah" style={{ width: '100%', borderRadius: '12px', objectFit: 'cover', aspectRatio: '4/3', boxShadow: '0 4px 15px rgba(0,0,0,0.3)' }} />
-            <img src="/tandatangan_iktbn.jpeg" alt="Sesi Tandatangan MoU" style={{ width: '100%', borderRadius: '12px', objectFit: 'cover', aspectRatio: '4/3', boxShadow: '0 4px 15px rgba(0,0,0,0.3)', transform: 'scale(1.05)', zIndex: 1, position: 'relative' }} />
-            <img src="/iktbn2.jpeg" alt="Mesyuarat IKTBN" style={{ width: '100%', borderRadius: '12px', objectFit: 'cover', aspectRatio: '4/3', boxShadow: '0 4px 15px rgba(0,0,0,0.3)' }} />
+            <img onClick={() => setMouLightboxIdx(0)} src="/iktbn1.jpeg" alt="Bergambar bersama Pengarah" style={{ width: '100%', borderRadius: '12px', objectFit: 'cover', aspectRatio: '4/3', boxShadow: '0 4px 15px rgba(0,0,0,0.3)', cursor: 'pointer' }} />
+            <img onClick={() => setMouLightboxIdx(1)} src="/tandatangan_iktbn.jpeg" alt="Sesi Tandatangan MoU" style={{ width: '100%', borderRadius: '12px', objectFit: 'cover', aspectRatio: '4/3', boxShadow: '0 4px 15px rgba(0,0,0,0.3)', transform: 'scale(1.05)', zIndex: 1, position: 'relative', cursor: 'pointer' }} />
+            <img onClick={() => setMouLightboxIdx(2)} src="/iktbn2.jpeg" alt="Mesyuarat IKTBN" style={{ width: '100%', borderRadius: '12px', objectFit: 'cover', aspectRatio: '4/3', boxShadow: '0 4px 15px rgba(0,0,0,0.3)', cursor: 'pointer' }} />
           </div>
         </div>
       </section>
@@ -623,7 +630,7 @@ export default function Home() {
           {/* Right — ROI */}
           <div className="roi-card reveal">
             <small>Jangkaan Balik Modal</small>
-            <div className="roi-big">8–12</div>
+            <div className="roi-big">18</div>
             <p>BULAN</p>
             <small>Bergantung pada prestasi dan keadaan operasi sebenar.</small>
           </div>
@@ -897,6 +904,9 @@ export default function Home() {
 
       {lightboxIdx !== null && (
         <Lightbox images={GALLERY_IMAGES} startIndex={lightboxIdx} onClose={() => setLightboxIdx(null)} />
+      )}
+      {mouLightboxIdx !== null && (
+        <Lightbox images={MOU_IMAGES} startIndex={mouLightboxIdx} onClose={() => setMouLightboxIdx(null)} />
       )}
     </>
   );

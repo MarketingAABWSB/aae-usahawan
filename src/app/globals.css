@@ -395,6 +395,7 @@ h3 { line-height: 1.16; font-weight: 700; }
 .hero-visual {
   position: relative;
   min-height: 400px;
+  width: 100%;
 }
 .hero-photo {
   position: absolute;
@@ -1439,13 +1440,17 @@ details[open] .faq-icon { transform: rotate(180deg); }
   .section-block { padding: 74px 0; }
   .container { width: min(100% - 26px, 1160px); }
 
-  .hero { padding: 112px 0 0; min-height: auto; }
+  .hero { padding: 112px 0 0; min-height: auto; justify-content: flex-start; }
   .hero-grid { gap: 36px; }
   .hero-h1 { font-size: clamp(2rem, 8vw, 3.5rem); }
   .hero-visual { min-height: 455px; }
   .hero-photo-big { 
-    width: auto;
-    inset: 28px 0 48px 38px; 
+    width: 85%;
+    height: auto;
+    top: 20px;
+    right: 0;
+    left: auto;
+    bottom: auto;
   }
   .hero-photo-small { 
     width: 175px; 
