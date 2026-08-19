@@ -16,21 +16,13 @@ import {
   ChevronRight,
 } from 'lucide-react';
 
-const GALLERY_IMAGES = [
-  { src: '/img1.jpg', alt: 'Kenangan TUDM — Bersama rakan-rakan di pangkalan' },
-  { src: '/img2.jpg', alt: 'Kenangan TUDM — Latihan di lapangan' },
-  { src: '/img4.jpg', alt: 'Kenangan TUDM — Tugas rasmi' },
-  { src: '/img6.jpg', alt: 'Kenangan TUDM — Kawad dan formasi' },
-  { src: '/img7.jpg', alt: 'Kenangan TUDM — Pasukan bersama' },
-];
-
 const MOU_IMAGES = [
   { src: '/iktbn1.jpeg', alt: '' },
   { src: '/tandatangan_iktbn.jpeg', alt: '' },
   { src: '/iktbn2.jpeg', alt: '' },
 ];
 
-function Lightbox({ images, startIndex, onClose }: { images: typeof GALLERY_IMAGES; startIndex: number; onClose: () => void }) {
+function Lightbox({ images, startIndex, onClose }: { images: { src: string; alt: string }[]; startIndex: number; onClose: () => void }) {
   const [idx, setIdx] = useState(startIndex);
 
   const goPrev = useCallback(() => setIdx((i) => (i - 1 + images.length) % images.length), [images.length]);
@@ -73,16 +65,16 @@ function Lightbox({ images, startIndex, onClose }: { images: typeof GALLERY_IMAG
 
 const HERO_SLIDES = [
   {
-    src: 'https://images.unsplash.com/photo-1625047509248-ec889cbff17f?w=800&h=1000&fit=crop&q=80',
-    alt: 'Bengkel AAE',
-    label: 'Bengkel AAE',
-    sub: 'Fasiliti bengkel yang moden, selesa dan profesional.',
+    src: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&h=1000&fit=crop&q=80',
+    alt: 'Jurutera Profesional',
+    label: 'Sistem Berstruktur',
+    sub: 'Operasi moden, telus dan dipantau melalui sistem pintar.',
   },
   {
-    src: '/img3.jpg',
-    alt: 'Wira Negara',
-    label: 'Wira Negara',
-    sub: 'Pengasas AAE semasa dalam TUDM.',
+    src: 'https://images.unsplash.com/photo-1573164713988-8665fc963095?w=800&h=1000&fit=crop&q=80',
+    alt: 'Pemantauan Mudah',
+    label: 'Pemantauan Mudah',
+    sub: 'Sesuai untuk profesional yang sibuk dengan kerja hakiki.',
   },
 ];
 
@@ -117,9 +109,9 @@ function HeroPhotoStack() {
 function SolutionAccordion() {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
   const items = [
-    { title: "Sistem perakaunan & stok", desc: "Pantau jualan, stok dan prestasi melalui Webmax dengan mudah." },
-    { title: "SOP operasi lengkap", desc: "Dari saat pelanggan masuk sampai serah kunci, semuanya diatur sistematik." },
-    { title: "Pemasaran berpusat (HQ)", desc: "Pasukan pemasaran HQ jalankan iklan Facebook & TikTok khas untuk kawasan bengkel Tuan." },
+    { title: "Pengurusan Automatik & Telus", desc: "Sistem rekod, invois, dan stok 100% digital. Anda boleh pantau jualan hari-hari terus dari smartphone anda di mana sahaja." },
+    { title: "Tenaga Kerja Disediakan", desc: "Tak perlu pening cari mekanik. HQ AAE yang akan saring, latih, dan tempatkan mekanik pakar untuk jalankan operasi." },
+    { title: "Bisnes Keperluan Berterusan", desc: "Selagi ada kereta di jalan raya, servis aircond dan enjin adalah wajib. Ia bukan bisnes bermusim." },
   ];
   return (
     <div className="accordion-wrapper reveal">
@@ -140,7 +132,7 @@ function SolutionAccordion() {
 
 export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
+
   const [mouLightboxIdx, setMouLightboxIdx] = useState<number | null>(null);
 
   useEffect(() => {
@@ -217,21 +209,19 @@ export default function Home() {
         <div className="container hero-grid">
           {/* Left — Text */}
           <div>
-            <span className="hero-tag">Edisi Khas Pesara Tentera</span>
+            <span className="hero-tag">KHAS UNTUK GOLONGAN PROFESIONAL & EKSEKUTIF TINGGI</span>
 
             <h1 className="hero-h1">
-              Modal Pencen Tuan Layak Dapat{' '}
-              <span className="text-gold">Bisnes Yang Bersistem.</span>
+              Bina Portfolio Pendapatan Pasif Melalui Francais Automotif Secara Autopilot.
             </h1>
 
             <p className="hero-lead">
-              Ramai pesara ada modal. Yang kurang adalah sistem, sokongan dan arah yang betul.
-              AAE hadir untuk tutup jurang itu — dengan bengkel aircond yang dipantau, teratur dan menguntungkan.
+              Anda sediakan modal, kami uruskan operasi. Miliki cawangan A-Cond Auto Expert (AAE) tanpa mengganggu kerjaya profesional anda, dipantau 100% melalui sistem digital.
             </p>
 
             <div className="hero-actions">
-              <a className="btn btn-primary btn-large" href="#peluang">Lihat Peluang Perniagaan</a>
-              <a className="btn btn-ghost" href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20AAE" target="_blank" rel="noopener noreferrer">Sembang Santai Dulu</a>
+              <a className="btn btn-primary btn-large" href="#peluang">Lihat Pelan Pelaburan</a>
+              <a className="btn btn-ghost" href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20Sistem%20Francais%20AAE" target="_blank" rel="noopener noreferrer">Jadualkan Konsultasi</a>
             </div>
 
             <div className="mini-trust">
@@ -278,63 +268,58 @@ export default function Home() {
           {/* Newspaper Card */}
           <div className="newspaper-card reveal">
             <div className="newspaper-top">
-              <span>LAPORAN KOSMO!</span>
-              <span>27 MAC 2026</span>
+              <span>LAPORAN ASTRO AWANI</span>
+              <span>23 MEI 2024</span>
             </div>
             <h3 className="newspaper-headline">
-              Wang pencen RM96,000 pesara lesap diperdaya skim pelaburan palsu
+              Pengurus rugi RM2.56 juta ditipu pelaburan kripto tidak wujud
             </h3>
             <div className="newspaper-img">
               <img
                 src="/news.png"
-                alt="Keratan Akhbar Kosmo"
+                alt="Keratan Akhbar Awani"
               />
             </div>
             <p className="newspaper-body">
-              KUALA TERENGGANU – Seorang pesara berusia 63 tahun kerugian RM96,000 wang pencen akibat diperdaya skim pelaburan tidak wujud menerusi WhatsApp. Mangsa yang tertarik dengan tawaran tersebut telah melakukan 50 transaksi ke dalam 15 akaun berbeza sebelum menyedari ditipu.
+              IPOH: Seorang pengurus syarikat swasta kerugian RM2.56 juta akibat diperdaya sindiket pelaburan mata wang kripto tidak wujud. Mangsa terjerat dengan janji pulangan pelaburan tinggi.
             </p>
             <a
-              href="https://www.kosmo.com.my/2026/03/27/wang-pencen-rm96000-pesara-lesap-diperdaya-skim-pelaburan-palsu/"
+              href="https://www.astroawani.com/berita-malaysia/pengurus-rugi-rm256-juta-ditipu-pelaburan-kripto-tidak-wujud-507928"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-outline"
               style={{ width: '100%', marginTop: '16px', fontSize: '0.85rem' }}
             >
-              Baca Artikel Penuh di Kosmo
+              Baca Artikel Penuh di Astro Awani
             </a>
           </div>
 
           {/* Pain Points */}
           <div className="reveal">
-            <p className="kick">Realiti Selepas Bersara</p>
             <h2 className="section-title">
-              Modal Ada. Disiplin Ada. Tetapi Tanpa Sistem, Tuan Boleh Terperangkap.
+              3 Dilema Golongan Profesional Berpendapatan Tinggi
             </h2>
-            <p className="lead">
-              Perniagaan yang kelihatan mudah dari luar boleh menjadikan Tuan hamba di kedai
-              sendiri apabila operasi, pekerja, stok dan pemasaran tidak dikawal.
-            </p>
 
             <div className="pain-list">
               <div className="pain-item">
                 <span className="pain-num">01</span>
                 <div>
-                  <b>Tak Ada Pengalaman Teknikal</b>
-                  <p>Tuan belum biasa dengan operasi bengkel dan pengurusan mekanik.</p>
+                  <b>Kekangan Masa Mengurus Operasi Harian</b>
+                  <p>Kerjaya korporat sangat sibuk, anda perlukan perniagaan yang berjalan secara 'autopilot' tanpa pemantauan fizikal.</p>
                 </div>
               </div>
               <div className="pain-item">
                 <span className="pain-num">02</span>
                 <div>
-                  <b>Sukar Pantau Pekerja &amp; Stok</b>
-                  <p>Ketirisan dan harga tidak konsisten sukar dikesan tanpa sistem.</p>
+                  <b>Risiko Integriti & Ketirisan Tenaga Kerja</b>
+                  <p>Risiko pengurusan inventori dan pekerja curi tulang dapat diatasi dengan Sistem Pengurusan Pintar (BOMP).</p>
                 </div>
               </div>
               <div className="pain-item">
                 <span className="pain-num">03</span>
                 <div>
-                  <b>Pelanggan Tidak Datang Sendiri</b>
-                  <p>Bisnes masih perlukan pemasaran dan proses jualan berulang.</p>
+                  <b>Volatiliti & Risiko Instrumen Kewangan</b>
+                  <p>Pasaran saham dan kripto sukar diramal. Anda perlukan pelaburan perniagaan fizikal (brick-and-mortar) yang kalis ekonomi.</p>
                 </div>
               </div>
             </div>
@@ -388,11 +373,11 @@ export default function Home() {
           <div className="reveal">
             <p className="kick">Penyelesaian Berjenama</p>
             <h2 className="section-title">
-              Tuan Tak Perlu Pandai Pegang Spanar Untuk Buka Bengkel.
+              Kenapa AAE Adalah Pilihan Terbaik Untuk 'Pelabur Senyap'?
             </h2>
             <p className="lead">
               AAE ialah sistem perniagaan berstruktur di bawah Azam Auto Body Work &amp;
-              Services (M) Sdn. Bhd. Melalui BOMP, operasi utama disediakan untuk Tuan.
+              Services (M) Sdn. Bhd. Melalui BOMP, operasi utama disediakan untuk anda.
             </p>
 
             <SolutionAccordion />
@@ -516,56 +501,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════════
-          6 ▸ FOUNDER
-      ═══════════════════════════════════════════════ */}
-      <section className="section-block founder-section">
-        <div className="container two-col">
-          {/* Portrait */}
-          <div className="portrait reveal">
-            <img
-              src="/img5.jpg"
-              alt="Boss Azam"
-              loading="lazy"
-            />
-            <div className="portrait-caption">
-              <b>Boss Azam</b>
-              <small>Pengasas AAE — Bekas anggota TUDM</small>
-            </div>
-          </div>
-
-          {/* Story */}
-          <div className="reveal">
-            <p className="kick gold">Inspirasi Pengasas</p>
-            <h2 className="section-title">Dari Uniform TUDM Ke Uniform Korporat.</h2>
-            <p className="lead light">
-              Boss Azam sendiri merupakan bekas anggota Tentera Udara Diraja Malaysia.
-              Beliau memahami jerih-perih, disiplin dan kebimbangan seorang pesara yang
-              mahu memulakan hidup baharu.
-            </p>
-            <div className="founder-gallery">
-              {GALLERY_IMAGES.map((img, i) => (
-                <div key={i} className="founder-gallery-thumb" onClick={() => setLightboxIdx(i)}>
-                  <img src={img.src} alt={img.alt} loading="lazy" />
-                  <div className="founder-gallery-zoom"><ArrowRight size={16} /></div>
-                </div>
-              ))}
-            </div>
-            <blockquote className="founder-quote">
-              &ldquo;Kalau saya boleh buat dan bina sistem ini, saya yakin rakan-rakan pesara
-              di luar sana pasti boleh buat jauh lebih baik.&rdquo;
-            </blockquote>
-            <div className="founder-award">
-              <span className="award-icon"><Star size={20} /></span>
-              <div>
-                <b>Anugerah Ikon Usahawan Industri Automotif</b>
-                <br />
-                <small>Anugerah AURA MARA 2024–2025</small>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ═══════════════════════════════════════════════
           7 ▸ BENEFITS
@@ -725,37 +660,36 @@ export default function Home() {
       <section id="hubungi" className="section-block cta-section">
         <div className="container">
           <div className="cta-box reveal">
-            <span className="hero-tag">Langkah Pertama Tanpa Bayaran</span>
+            <span className="hero-tag">Sesi Penilaian Eksklusif (Percuma)</span>
             <h2 className="section-title" style={{ marginTop: '1.25rem' }}>
-              Jangan Terus Melabur. Sembang Dengan Kami Dahulu.
+              Jangan Buat Keputusan Sebelum Meneliti Angka & Fakta.
             </h2>
             <p className="lead">
-              Tuan tidak perlu bayar apa-apa hari ini. Fahami model perniagaan, semak
-              kawasan dan lihat sendiri sistem sebelum membuat keputusan.
+              Fahami unjuran ROI, struktur pengurusan risiko, dan teliti kelayakan kawasan anda sebelum menyertai rangkaian francais kami.
             </p>
 
             <div className="steps-grid">
               <div className="step-card">
                 <b>01</b>
-                <span>Tekan butang WhatsApp.</span>
+                <span>Tempah slot jadual melalui WhatsApp.</span>
               </div>
               <div className="step-card">
                 <b>02</b>
-                <span>Sembang kopi-kopi secara bersemuka atau online.</span>
+                <span>Sesi pembentangan ROI & operasi (Zoom / Bersemuka).</span>
               </div>
               <div className="step-card">
                 <b>03</b>
-                <span>Bila Tuan nampak jalan, barulah kita bergerak.</span>
+                <span>Pemilihan lokasi dan pendaftaran bermula.</span>
               </div>
             </div>
 
             <a
               className="btn btn-wa btn-large"
-              href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20untuk%20sembang%20santai%20tentang%20peluang%20bengkel%20AAE%20khas%20pesara%20tentera."
+              href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20untuk%20menjadualkan%20sesi%20pembentangan%20pelaburan%20AAE."
               target="_blank"
               rel="noopener noreferrer"
             >
-              Saya Berminat Nak Sembang Santai Dulu <ArrowRight size={20} />
+              Tempah Sesi Konsultasi Eksklusif <ArrowRight size={20} />
             </a>
           </div>
         </div>
@@ -774,12 +708,21 @@ export default function Home() {
           <div className="faq-list">
             <details className="faq-item" open>
               <summary className="faq-summary">
-                <span>Saya memang buta bab enjin dan aircond. Boleh ke buat?</span>
+                <span>Saya tak tahu langsung baiki kereta, boleh ke buka bengkel?</span>
                 <ChevronDown className="faq-icon" size={20} />
               </summary>
               <div className="faq-content">
-                Boleh. Tugas utama Tuan ialah mengurus dan memantau pekerja menggunakan
-                sistem yang disediakan. Latihan pengurusan dan teknikal akan diberikan.
+                Boleh. Anda bertindak sebagai pemilik perniagaan / pengarah pelabur. Kerja teknikal 100% diuruskan pasukan kami yang terlatih.
+              </div>
+            </details>
+
+            <details className="faq-item">
+              <summary className="faq-summary">
+                <span>Macam mana saya nak tahu bengkel buat untung?</span>
+                <ChevronDown className="faq-icon" size={20} />
+              </summary>
+              <div className="faq-content">
+                Sistem Point-of-Sale (POS) dan Jobsheet digital kami membolehkan anda melihat laporan kewangan secara real-time yang tidak boleh dimanipulasi.
               </div>
             </details>
 
@@ -815,13 +758,12 @@ export default function Home() {
         <div className="container warning-inner">
           <span className="warning-icon">!</span>
           <div>
-            <h2>Duit Pencen Itu Hasil Titik Peluh Tuan.</h2>
+            <h2>Kekayaan Sebenar Adalah Apabila Duit Bekerja Semasa Anda Sibuk.</h2>
             <p>
-              Jangan biarkan ia susut tanpa arah atau lebur di tangan orang yang salah.
-              Bina perniagaan bersistem yang boleh diwarisi anak cucu.
+              Pelbagaikan wang simpanan anda ke dalam industri fizikal yang kukuh. Jangan biarkan masa berlalu tanpa aset perniagaan.
             </p>
           </div>
-          <a className="btn btn-ghost" href="#hubungi">Bertindak Sekarang</a>
+          <a className="btn btn-ghost" href="#hubungi">Bincang Potensi ROI Hari Ini</a>
         </div>
       </section>
 
@@ -902,9 +844,7 @@ export default function Home() {
         </div>
       </footer>
 
-      {lightboxIdx !== null && (
-        <Lightbox images={GALLERY_IMAGES} startIndex={lightboxIdx} onClose={() => setLightboxIdx(null)} />
-      )}
+
       {mouLightboxIdx !== null && (
         <Lightbox images={MOU_IMAGES} startIndex={mouLightboxIdx} onClose={() => setMouLightboxIdx(null)} />
       )}
