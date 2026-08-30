@@ -109,9 +109,9 @@ function HeroPhotoStack() {
 function SolutionAccordion() {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
   const items = [
-    { title: "Pengurusan Automatik & Telus", desc: "Sistem rekod, invois, dan stok 100% digital. Anda boleh pantau jualan hari-hari terus dari smartphone anda di mana sahaja." },
-    { title: "Tenaga Kerja Disediakan", desc: "Tak perlu pening cari mekanik. HQ AAE yang akan saring, latih, dan tempatkan mekanik pakar untuk jalankan operasi." },
-    { title: "Bisnes Keperluan Berterusan", desc: "Selagi ada kereta di jalan raya, servis aircond dan enjin adalah wajib. Ia bukan bisnes bermusim." },
+    { title: "SOP & Blueprint Kejayaan", desc: "Kami serahkan model perniagaan (plug-and-play) yang sudah dites di pasaran. Anda tak perlu cipta sistem dari sifar." },
+    { title: "Rantaian Bekalan Berpusat (HQ)", desc: "Anda nikmati kelebihan ekonomi skala. Dapat bekalan pelincir jenama AZAMU dan alat ganti pada kos terendah untuk margin maksima." },
+    { title: "Sokongan Pemasaran Berpusat", desc: "Fokus pada operasi bengkel, pasukan pemasaran HQ akan tembak iklan (TikTok/Meta/Google) untuk pancing trafik terus ke cawangan anda." },
   ];
   return (
     <div className="accordion-wrapper reveal">
@@ -176,7 +176,7 @@ export default function Home() {
             <a href="#bukti" className="nav-link">Bukti</a>
             <a href="#tawaran" className="nav-link">Pelaburan</a>
             <a href="#hubungi" className="nav-link">Hubungi</a>
-            <a href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20AAE" className="btn btn-primary btn-large" style={{ padding: '0.6rem 1.25rem' }} target="_blank" rel="noopener noreferrer">
+            <a href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20Peluang%20Francais%20AAE%20untuk%20Usahawan" className="btn btn-primary btn-large" style={{ padding: '0.6rem 1.25rem' }} target="_blank" rel="noopener noreferrer">
               Sembang Dengan Kami
             </a>
           </div>
@@ -188,7 +188,7 @@ export default function Home() {
             <a href="#bukti" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Bukti</a>
             <a href="#tawaran" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Pelaburan</a>
             <a href="#hubungi" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Hubungi</a>
-            <a href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20AAE" className="btn btn-primary btn-large" target="_blank" rel="noopener noreferrer">
+            <a href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20Peluang%20Francais%20AAE%20untuk%20Usahawan" className="btn btn-primary btn-large" target="_blank" rel="noopener noreferrer">
               Sembang Dengan Kami
             </a>
           </div>
@@ -196,7 +196,7 @@ export default function Home() {
       </nav>
 
       {/* ── Floating WhatsApp CTA ────────────────── */}
-      <a href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20AAE" className="floating-cta icon-only" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Kami">
+      <a href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20Peluang%20Francais%20AAE%20untuk%20Usahawan" className="floating-cta icon-only" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp Kami">
         <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
         </svg>
@@ -209,25 +209,25 @@ export default function Home() {
         <div className="container hero-grid">
           {/* Left — Text */}
           <div>
-            <span className="hero-tag">KHAS UNTUK GOLONGAN PROFESIONAL & EKSEKUTIF TINGGI</span>
+            <span className="hero-tag">KHAS UNTUK FOUNDER PRODUK, PEMILIK F&B & SYARIKAT LOGISTIK</span>
 
             <h1 className="hero-h1">
-              Bina Portfolio Pendapatan Pasif Melalui Francais Automotif Secara Autopilot.
+              Kembangkan Portfolio 'Cashflow' Syarikat Anda Ke Industri Automotif.
             </h1>
 
             <p className="hero-lead">
-              Anda sediakan modal, kami uruskan operasi. Miliki cawangan A-Cond Auto Expert (AAE) tanpa mengganggu kerjaya profesional anda, dipantau 100% melalui sistem digital.
+              Bisnes utama anda sudah stabil, tapi mencari ruang pelaburan baru? Jangan buang masa bermula dari sifar. Buka cawangan francais A-Cond Auto Expert (AAE) yang dilengkapi SOP, rangkaian pembekal termurah, dan jenama kukuh.
             </p>
 
             <div className="hero-actions">
               <a className="btn btn-primary btn-large" href="#peluang">Lihat Pelan Pelaburan</a>
-              <a className="btn btn-ghost" href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20Sistem%20Francais%20AAE" target="_blank" rel="noopener noreferrer">Jadualkan Konsultasi</a>
+              <a className="btn btn-ghost" href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20Peluang%20Francais%20AAE%20untuk%20Usahawan" target="_blank" rel="noopener noreferrer">Jadualkan Konsultasi</a>
             </div>
 
             <div className="mini-trust">
-              <span>Sistem BOMP berstruktur</span>
-              <span>Latihan zero-to-hero</span>
-              <span>Marketing HQ</span>
+              <span>SOP Plug-and-Play</span>
+              <span>Ekonomi Skala</span>
+              <span>Marketing Berpusat</span>
             </div>
 
           </div>
@@ -268,58 +268,58 @@ export default function Home() {
           {/* Newspaper Card */}
           <div className="newspaper-card reveal">
             <div className="newspaper-top">
-              <span>LAPORAN ASTRO AWANI</span>
-              <span>23 MEI 2024</span>
+              <span>LAPORAN KOSMO!</span>
+              <span>1 FEB 2023</span>
             </div>
             <h3 className="newspaper-headline">
-              Pengurus rugi RM2.56 juta ditipu pelaburan kripto tidak wujud
+              'Kenderaan lebih banyak daripada penduduk Malaysia'
             </h3>
             <div className="newspaper-img">
               <img
-                src="/news.png"
-                alt="Keratan Akhbar Awani"
+                src="/news-pic.jpg"
+                alt="Keratan Akhbar Kosmo"
               />
             </div>
             <p className="newspaper-body">
-              IPOH: Seorang pengurus syarikat swasta kerugian RM2.56 juta akibat diperdaya sindiket pelaburan mata wang kripto tidak wujud. Mangsa terjerat dengan janji pulangan pelaburan tinggi.
+              KUALA LUMPUR: Rekod sejarah! Industri pasca-jualan automotif (aftermarket) dijangka meledak susulan data pendaftaran kenderaan yang terus meningkat. Bayangkan potensi permintaan untuk pusat servis kenderaan.
             </p>
             <a
-              href="https://www.astroawani.com/berita-malaysia/pengurus-rugi-rm256-juta-ditipu-pelaburan-kripto-tidak-wujud-507928"
+              href="https://www.kosmo.com.my/2023/02/01/kenderaan-lebih-banyak-daripada-penduduk-malaysia/"
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-outline"
               style={{ width: '100%', marginTop: '16px', fontSize: '0.85rem' }}
             >
-              Baca Artikel Penuh di Astro Awani
+              Baca Fakta Pasaran Penuh
             </a>
           </div>
 
           {/* Pain Points */}
           <div className="reveal">
             <h2 className="section-title">
-              3 Dilema Golongan Profesional Berpendapatan Tinggi
+              3 Cabaran Usahawan Mengembangkan Sayap Ke Industri Baru
             </h2>
 
             <div className="pain-list">
               <div className="pain-item">
                 <span className="pain-num">01</span>
                 <div>
-                  <b>Kekangan Masa Mengurus Operasi Harian</b>
-                  <p>Kerjaya korporat sangat sibuk, anda perlukan perniagaan yang berjalan secara 'autopilot' tanpa pemantauan fizikal.</p>
+                  <b>Kos 'Try & Error' Sangat Mahal</b>
+                  <p>Membina sistem, jenama, dan pemasaran untuk industri automotif dari bawah memakan beratus ribu ringgit dan masa bertahun-tahun.</p>
                 </div>
               </div>
               <div className="pain-item">
                 <span className="pain-num">02</span>
                 <div>
-                  <b>Risiko Integriti & Ketirisan Tenaga Kerja</b>
-                  <p>Risiko pengurusan inventori dan pekerja curi tulang dapat diatasi dengan Sistem Pengurusan Pintar (BOMP).</p>
+                  <b>Sukar Cari Pembekal Jujur</b>
+                  <p>Dalam F&B/Logistik anda ada 'supplier' tetap, tapi dalam automotif anda mungkin 'disembelih' harga alat ganti tanpa jaringan kuat.</p>
                 </div>
               </div>
               <div className="pain-item">
                 <span className="pain-num">03</span>
                 <div>
-                  <b>Volatiliti & Risiko Instrumen Kewangan</b>
-                  <p>Pasaran saham dan kripto sukar diramal. Anda perlukan pelaburan perniagaan fizikal (brick-and-mortar) yang kalis ekonomi.</p>
+                  <b>Ketiadaan Sistem & SOP Automatik</b>
+                  <p>Susah nak scale-up jika operasi harian bengkel hanya bergantung pada 'mood' atau kemahiran teknikal seorang dua mekanik sahaja.</p>
                 </div>
               </div>
             </div>
@@ -373,16 +373,16 @@ export default function Home() {
           <div className="reveal">
             <p className="kick">Penyelesaian Berjenama</p>
             <h2 className="section-title">
-              Kenapa AAE Adalah Pilihan Terbaik Untuk 'Pelabur Senyap'?
+              Dominasi Pasaran Pantas Dengan Ekosistem Sedia Ada AAE.
             </h2>
             <p className="lead">
-              AAE ialah sistem perniagaan berstruktur di bawah Azam Auto Body Work &amp;
-              Services (M) Sdn. Bhd. Melalui BOMP, operasi utama disediakan untuk anda.
+              AAE ialah ekosistem perniagaan berstruktur di bawah Azam Auto Body Work &amp;
+              Services (M) Sdn. Bhd. Melalui sistem terpusat, ia dicipta khas untuk pelaburan yang kalis risiko.
             </p>
 
             <SolutionAccordion />
 
-            <a className="btn btn-primary btn-large" href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20AAE" target="_blank" rel="noopener noreferrer" style={{ marginTop: '1.5rem' }}>
+            <a className="btn btn-primary btn-large" href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20Peluang%20Francais%20AAE%20untuk%20Usahawan" target="_blank" rel="noopener noreferrer" style={{ marginTop: '1.5rem' }}>
               Saya Mahu Tahu Sistem AAE
             </a>
           </div>
@@ -514,11 +514,11 @@ export default function Home() {
 
           <div className="benefits-grid">
             {[
-              { num: '01', title: 'Tak Perlu Pandai Baiki Kereta', desc: 'Latihan "Zero to Hero" untuk pemilik dan mekanik.' },
-              { num: '02', title: 'HQ Tolong Cari Pelanggan', desc: 'Sistem marketing berpusat untuk kawasan bengkel Tuan.' },
-              { num: '03', title: 'Kurangkan Ketirisan', desc: 'Stok dan transaksi direkod melalui sistem berkomputer.' },
-              { num: '04', title: 'Harga Barang Borong', desc: 'Akses alat ganti melalui rangkaian pembekal HQ.' },
-              { num: '05', title: 'Setup Penuh', desc: 'Ubah suai, mesin, sistem, stok dan susun atur bengkel.' },
+              { num: '01', title: 'Automasi Operasi Harian', desc: 'Sistem POS & inventori mengawal segala transaksi tanpa perlu anda berada di bengkel setiap masa.' },
+              { num: '02', title: 'Rangkaian Pembekal Berpusat', desc: 'Akses terus kepada kilang dan pembekal utama dengan harga borong (ekonomi skala) yang jauh lebih murah.' },
+              { num: '03', title: 'Sokongan Pemasaran Digital', desc: 'Fokus urus bengkel, HQ akan uruskan iklan berbayar (Ads) untuk pastikan cawangan sentiasa menerima trafik pelanggan.' },
+              { num: '04', title: 'Penyediaan Tenaga Mahir', desc: 'Masalah cari pekerja selesai. Bantuan saringan dan latihan mekanik diuruskan oleh pakar HQ bersama IKTBN.' },
+              { num: '05', title: 'Sistem Francais Turnkey', desc: 'Kami sediakan segalanya: daripada ubah suai kedai, kelengkapan mesin sehinggalah susun atur bengkel sedia beroperasi.' },
             ].map((b) => (
               <article key={b.num} className="benefit-card reveal" data-n={b.num}>
                 <span className="benefit-icon">{b.num}</span>
@@ -685,7 +685,7 @@ export default function Home() {
 
             <a
               className="btn btn-wa btn-large"
-              href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20untuk%20menjadualkan%20sesi%20pembentangan%20pelaburan%20AAE."
+              href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20Peluang%20Francais%20AAE%20untuk%20Usahawan."
               target="_blank"
               rel="noopener noreferrer"
             >
@@ -708,11 +708,11 @@ export default function Home() {
           <div className="faq-list">
             <details className="faq-item" open>
               <summary className="faq-summary">
-                <span>Saya tak tahu langsung baiki kereta, boleh ke buka bengkel?</span>
+                <span>Saya tiada latar belakang teknikal automotif, adakah bisnes ini sesuai untuk saya kembangkan?</span>
                 <ChevronDown className="faq-icon" size={20} />
               </summary>
               <div className="faq-content">
-                Boleh. Anda bertindak sebagai pemilik perniagaan / pengarah pelabur. Kerja teknikal 100% diuruskan pasukan kami yang terlatih.
+                Sangat sesuai. Anda berfungsi sebagai pengarah dan pemantau. Urusan teknikal harian dan bekalan tenaga kerja mekanik diuruskan sepenuhnya oleh ekosistem AAE.
               </div>
             </details>
 
@@ -758,12 +758,12 @@ export default function Home() {
         <div className="container warning-inner">
           <span className="warning-icon">!</span>
           <div>
-            <h2>Kekayaan Sebenar Adalah Apabila Duit Bekerja Semasa Anda Sibuk.</h2>
+            <h2>Usahawan Bijak Melabur Pada Sistem, Bukan Sekadar Jenama.</h2>
             <p>
-              Pelbagaikan wang simpanan anda ke dalam industri fizikal yang kukuh. Jangan biarkan masa berlalu tanpa aset perniagaan.
+              Kembangkan aliran tunai (cashflow) syarikat anda bersama ekosistem automotif yang sedang berkembang pesat. Kawasan berpotensi tinggi terhad.
             </p>
           </div>
-          <a className="btn btn-ghost" href="#hubungi">Bincang Potensi ROI Hari Ini</a>
+          <a className="btn btn-ghost" href="#hubungi">Tempah Slot Perbincangan VIP</a>
         </div>
       </section>
 
@@ -788,7 +788,7 @@ export default function Home() {
                 <a href="https://www.facebook.com/profile.php?id=100067465844743&mibextid=wwXIfr" className="social-icon" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
                   <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>
                 </a>
-                <a href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20AAE" className="social-icon" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
+                <a href="https://api.whatsapp.com/send?phone=60123741726&text=Saya%20berminat%20tentang%20Peluang%20Francais%20AAE%20untuk%20Usahawan" className="social-icon" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer">
                   <MessageCircle size={18} />
                 </a>
               </div>
